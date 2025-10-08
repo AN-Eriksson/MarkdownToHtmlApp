@@ -30,18 +30,6 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'prettier/prettier': [
-        'error',
-        {
-          singleQuote: true,
-          semi: true,
-          tabWidth: 2,
-          trailingComma: 'es5',
-          printWidth: 80,
-          bracketSpacing: true,
-          arrowParens: 'avoid',
-        },
-      ],
     },
   },
 ]);
