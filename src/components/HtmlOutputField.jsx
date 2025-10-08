@@ -1,9 +1,9 @@
 import React from 'react'
 
-const HtmlOutputField = ({ markdownInput }) => {
+const HtmlOutputField = ({ htmlOutput }) => {
     return (
         <div className='bg-green-400'>
-            {markdownInput}
+            {htmlOutput}
         </div>
     )
 }
