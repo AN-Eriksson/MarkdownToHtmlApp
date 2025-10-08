@@ -1,10 +1,21 @@
-import HtmlInputField from './components/HtmlInputField';
+import { useState } from 'react';
+import MarkdownInputField from './components/MarkdownInputField';
+import HtmlOutputField from './components/HtmlOutputField';
 
-function App() {
+const App = () => {
+  const [markdownInput, setMarkdownInput] = useState('');
+
+  const handleInputChange = event => {
+    setMarkdownInput(event.target.value);
+  }
   return (
-    <div>
-      <h1>Markdown to HTML App</h1>
-      <HtmlInputField />
+    <div className='flex'>
+      <MarkdownInputField
+        value={markdownInput}
+        onChange={handleInputChange} />
+
+      <HtmlOutputField
+        markdownInput={markdownInput} />
     </div>
   );
 }
