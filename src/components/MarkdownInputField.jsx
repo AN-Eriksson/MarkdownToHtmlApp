@@ -4,7 +4,7 @@ const MarkdownInputField = ({ value, onChange }) => {
   return (
     <div className='bg-gray-300'>
       <form>
-        <input type='text'
+        <textarea type='text'
           className='bg-amber-200'
           value={value}
           onChange={onChange}
