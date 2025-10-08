@@ -1,13 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const HtmlOutputField = ({ htmlOutput }) => {
-    return (
-        <div className='bg-green-400 p-4'>
-            <pre className='whitespace-pre-wrap font-mono text-sm'>
-                {htmlOutput}
-            </pre>
-        </div>
-    )
-}
+  return (
+    <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
+      {htmlOutput}
+    </pre>
+  );
+};
 
-export default HtmlOutputField
+export default HtmlOutputField;
