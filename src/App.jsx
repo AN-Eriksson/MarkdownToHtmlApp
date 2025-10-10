@@ -8,12 +8,18 @@ import Toolbar from './components/Toolbar';
 
 const App = () => {
   const [markdownInput, setMarkdownInput] = useState('');
+  const [copyStatus, setCopyStatus] = useState('copy html');
+  
 
   const markupConverter = new MarkupConverter();
-  const htmlOutput = markdownInput 
-  ? markupConverter.convert(markdownInput) // Mask bug where MarkupConverter wraps empty line in <p> tags. Remove conditional when module is patched!
-  : '';
+  const htmlOutput = markdownInput
+    ? markupConverter.convert(markdownInput) // Mask bug where MarkupConverter wraps empty line in <p> tags. Remove conditional when module is patched!
+    : '';
 
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(htmlOutput)
+    setCopyStatus('copied')
+  }
 
   const handleInputChange = event => {
     setMarkdownInput(event.target.value);
@@ -21,7 +27,11 @@ const App = () => {
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
       <Header />
-      <Toolbar />
+      <Toolbar
+        // onSave={handleSave}
+        // onLoad={handleLoad}
+        onCopy={handleCopy}
+        copyStatus={copyStatus} />
       <main className='flex gap-4 flex-1 w-full px-4'>
         <MarkdownInputField
           className='flex-1'

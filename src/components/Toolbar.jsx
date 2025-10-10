@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Toolbar = ({ onSave, onLoad, onCopy }) => {
+const Toolbar = ({ onSave, onLoad, onCopy, copyStatus }) => {
     return (
         <div className='flex gap-2 mb-4'>
             <button
@@ -25,7 +25,7 @@ const Toolbar = ({ onSave, onLoad, onCopy }) => {
              focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                 onClick={onCopy}
             >
-                Copy HTML
+                {copyStatus}
             </button>
         </div>
     )
