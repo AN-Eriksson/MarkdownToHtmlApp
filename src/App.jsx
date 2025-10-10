@@ -9,6 +9,7 @@ import Toolbar from './components/Toolbar';
 const App = () => {
   const [markdownInput, setMarkdownInput] = useState('');
   const [copyStatus, setCopyStatus] = useState('copy html');
+  const [copyTimeoutId, setCopyTimeoutId] = useState(null);
   
 
   const markupConverter = new MarkupConverter();
@@ -19,6 +20,17 @@ const App = () => {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(htmlOutput)
     setCopyStatus('copied')
+
+    if(copyTimeoutId) {
+      clearTimeout(copyTimeoutId);
+    }
+
+    const id = setTimeout(() => {
+      setCopyStatus('copy html');
+      setCopyTimeoutId(null);
+    }, 2000)
+
+    setCopyTimeoutId(id);
   }
 
   const handleInputChange = event => {
