@@ -2,9 +2,9 @@ import React from 'react';
 
 const HtmlOutput = ({ htmlOutput }) => {
   return (
-    <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
-      {htmlOutput || ''}
-    </pre>
+    <div className="flex-1 border rounded-xl overflow-hidden bg-amber-100 p-2">
+      <pre className="whitespace-pre-wrap font-mono text-sm p-4">{htmlOutput || ''}</pre>
+    </div>
   );
 };
 

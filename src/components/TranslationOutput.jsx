@@ -2,9 +2,12 @@ import React from 'react';
 
 const TranslationOutput = ({ translatedText }) => {
   return (
-    <pre className='whitespace-pre-wrap font-mono text-sm flex-1 border bg-amber-100'>
-      {translatedText || ''}
-    </pre>
+    <div className="flex-1 border rounded-xl overflow-hidden bg-amber-100 p-2">
+      <pre className='whitespace-pre-wrap font-mono text-sm flex-1 bg-amber-100'>
+        {translatedText || ''}
+      </pre>
+
+    </div>
   );
 };
 
