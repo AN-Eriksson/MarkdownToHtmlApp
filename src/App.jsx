@@ -82,8 +82,6 @@ const App = () => {
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
       <Toolbar
-        onCopy={handleCopy}
-        copyStatus={copyStatus}
         mode={mode}
         onToggleMode={toggleMode}
         onLanguageSelect={pair => setLangPair(pair)}
@@ -100,9 +98,15 @@ const App = () => {
         </div>
 
         {mode === 'html' ? (
-          <HtmlOutput htmlOutput={htmlOutput} />
+          <HtmlOutput
+            htmlOutput={htmlOutput}
+            onCopy={handleCopy}
+            copyStatus={copyStatus} />
         ) : (
-          <TranslationOutput translatedText={translatedText} />
+          <TranslationOutput
+            translatedText={translatedText}
+            onCopy={handleCopy}
+            copyStatus={copyStatus} />
         )}
       </main>
       <Footer />

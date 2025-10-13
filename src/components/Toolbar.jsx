@@ -2,8 +2,6 @@ import React from 'react';
 import LanguagePicker from './LanguagePicker';
 
 const Toolbar = ({
-  onCopy,
-  copyStatus,
   mode,
   onToggleMode,
   onLanguageSelect,
@@ -22,15 +20,6 @@ const Toolbar = ({
       </button>
 
       {mode === 'translate' && <LanguagePicker onSelect={onLanguageSelect} />}
-
-      <button
-        type='button'
-        className='px-4 py-2 w-34 bg-gray-600 text-white rounded hover:bg-gray-700
-             focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300'
-        onClick={onCopy}
-      >
-        {copyStatus}
-      </button>
     </div>
   );
 };
