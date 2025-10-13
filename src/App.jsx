@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import TextInputField from './components/TextInputField';
-import HtmlOutput from './components/HtmlOutputField';
+import HtmlOutput from './components/HtmlOutput';
 import { MarkupConverter } from '@an-eriksson/markup-converter';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,6 +11,8 @@ const App = () => {
   const [inputText, setInputText] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy');
   const [copyTimeoutId, setCopyTimeoutId] = useState(null);
+
+  const [mode, setMode] = useState('translate');
 
 
   const markupConverter = new MarkupConverter();
@@ -34,6 +36,9 @@ const App = () => {
     setCopyTimeoutId(id);
   }
 
+  const toggleMode = () => {
+    setMode(mode => mode === 'html' ? 'translate' : 'html')
+  }
 
   const handleInputChange = event => {
     setInputText(event.target.value);
@@ -45,19 +50,24 @@ const App = () => {
         // onSave={handleSave}
         // onLoad={handleLoad}
         onCopy={handleCopy}
-        copyStatus={copyStatus} />
+        copyStatus={copyStatus}
+        mode={mode}
+        onToggleMode={toggleMode} />
       <main className='flex gap-4 flex-1 w-full px-4'>
         <TextInputField
           value={inputText}
           onChange={handleInputChange}
         />
 
-        <HtmlOutput
-          htmlOutput={htmlOutput} />
-        <Translator
-          stringToTranslate={'Hello world!'}
-          lang={'es'}
-        />
+        {mode === 'html' ? (
+          <HtmlOutput
+            htmlOutput={htmlOutput} />
+        ) : (
+          <Translator
+            stringToTranslate={inputText}
+            lang={'es'}
+          />
+        )}
       </main>
       <Footer />
     </div>

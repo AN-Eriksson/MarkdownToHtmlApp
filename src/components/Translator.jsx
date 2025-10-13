@@ -17,7 +17,11 @@ const Translator = ({ stringToTranslate, lang }) => {
         })()
     }, [stringToTranslate, lang])
 
-    return <span>{text}</span>
+    return (
+        <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
+            {text}
+        </pre>
+    )
 }
 
 export default Translator
