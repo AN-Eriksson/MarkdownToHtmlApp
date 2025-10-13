@@ -11,10 +11,10 @@ export default class ConversionManager {
     return text ? this.markupConverter.convert(text) : '';
   }
 
-  async translateText(text, lang = 'sv') {
+  async translateText(text, langPair) {
     if (!text) return '';
 
-    const result = await this.translateFn(text, lang);
+    const result = await this.translateFn(text, langPair);
 
     return result;
   }

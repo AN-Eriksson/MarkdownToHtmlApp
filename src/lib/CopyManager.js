@@ -4,7 +4,7 @@ export default class CopyManager {
   duration;
   timeoutId;
 
-  constructor(setStatus, defaultLabel = 'Copy', duration = 2000) {
+  constructor(setStatus, defaultLabel = 'Copy output', duration = 2000) {
     this.setStatus = setStatus;
     this.defaultLabel = defaultLabel;
     this.duration = duration;
