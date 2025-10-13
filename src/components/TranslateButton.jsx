@@ -1,6 +1,10 @@
 import React from 'react';
 
-const TranslateButton = ({ onClick, loading }) => {
+const TranslateButton = ({ onClick, loading, mode }) => {
+  const label = loading ?
+    (mode === 'html' ? 'Converting..' : 'Translating..')
+    : (mode === 'html' ? 'Convert' : 'Translate')
+
   return (
     <button
       type='button'
@@ -8,7 +12,7 @@ const TranslateButton = ({ onClick, loading }) => {
       onClick={onClick}
       disabled={loading}
     >
-      {loading ? 'Translating…' : 'Translate'}
+      {label}
     </button>
   );
 };

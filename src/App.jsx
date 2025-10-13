@@ -95,6 +95,7 @@ const App = () => {
           <TranslateButton
             onClick={handleConversionProcess}
             loading={loading}
+            mode={mode}
           />
         </div>
 
