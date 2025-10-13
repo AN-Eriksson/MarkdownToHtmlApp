@@ -1,4 +1,7 @@
 export default class ConversionManager {
+    markupConverter;
+    translateFn;
+    
   constructor(markupConverter, translateFn) {
     this.markupConverter = markupConverter;
     this.translateFn = translateFn;
