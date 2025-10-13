@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TextInputField from './components/TextInputField';
 import HtmlOutput from './components/HtmlOutput';
 import { MarkupConverter } from '@an-eriksson/markup-converter';
@@ -8,11 +8,11 @@ import Toolbar from './components/Toolbar';
 import TranslationOutput from './components/TranslationOutput';
 import translate from 'translate';
 import TranslateButton from './components/TranslateButton';
+import CopyManager from './lib/CopyManager';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy');
-  const [copyTimeoutId, setCopyTimeoutId] = useState(null);
 
   const [mode, setMode] = useState('translate');
   const [loading, setLoading] = useState(false);
@@ -23,22 +23,21 @@ const App = () => {
 
   const markupConverter = new MarkupConverter();
 
+  // Get references to the lib classes
+
+  const copyManagerRef = useRef(null)
+  useEffect(() => {
+    copyManagerRef.current = new CopyManager(setCopyStatus, 'Copy', 2000)
+    return () => {
+      copyManagerRef.current?.clear()
+    }
+  }, [setCopyStatus])
+
   const handleCopy = async () => {
     const textToCopy = mode === 'html' ? htmlOutput : translatedText;
-    await navigator.clipboard.writeText(textToCopy);
-    setCopyStatus('Copied');
-
-    if (copyTimeoutId) {
-      clearTimeout(copyTimeoutId);
-    }
-
-    const id = setTimeout(() => {
-      setCopyStatus('Copy');
-      setCopyTimeoutId(null);
-    }, 2000)
-
-    setCopyTimeoutId(id);
+    await copyManagerRef.current.copy(textToCopy);
   }
+
 
   const handleConversionProcess = async () => {
     if (!inputText) {
