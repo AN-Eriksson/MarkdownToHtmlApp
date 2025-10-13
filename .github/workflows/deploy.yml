@@ -1,0 +1,45 @@
+# This is a GitHub CI/CD configuration file.
+
+# The following secrets are expected to be set in the GitHub CI/CD settings:
+  #PRODUCTION_HOST - The IP address of the production server.
+  #PRODUCTION_HOST_USER - The user to connect to the production server.
+  #PRODUCTION_HOST_PATH - The path on the production server where the application is located.
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: unit-test
+    if: github.ref == 'refs/heads/main'
+    env:
+      PRODUCTION_HOST: ${{ secrets.PRODUCTION_HOST }}
+      PRODUCTION_HOST_USER: ${{ secrets.PRODUCTION_HOST_USER }}
+      PRODUCTION_HOST_PATH: ${{ secrets.PRODUCTION_HOST_PATH }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $PRODUCTION_HOST >> ~/.ssh/known_hosts
+
+      - name: Pull latest code on server
+        run: ssh -o StrictHostKeyChecking=no $PRODUCTION_HOST_USER@$PRODUCTION_HOST "cd $PRODUCTION_HOST_PATH && git pull origin main"
+
+      - name: Deploy using Docker Compose
+        run: |
+          ssh $PRODUCTION_HOST_USER@$PRODUCTION_HOST "
+            cd $PRODUCTION_HOST_PATH && \
+            docker compose -f docker-compose.yml up --build -d
+          "
