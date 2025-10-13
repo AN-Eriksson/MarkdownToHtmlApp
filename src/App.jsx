@@ -24,8 +24,9 @@ const App = () => {
   const markupConverter = new MarkupConverter();
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(htmlOutput)
-    setCopyStatus('Copied')
+    const textToCopy = mode === 'html' ? htmlOutput : translatedText;
+    await navigator.clipboard.writeText(textToCopy);
+    setCopyStatus('Copied');
 
     if (copyTimeoutId) {
       clearTimeout(copyTimeoutId);
