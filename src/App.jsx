@@ -12,6 +12,7 @@ import CopyManager from './lib/CopyManager';
 import ConversionManager from './lib/ConversionManager';
 
 const App = () => {
+  // ============ State ============
   const [inputText, setInputText] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy');
 
@@ -22,13 +23,14 @@ const App = () => {
   const [translatedText, setTranslatedText] = useState('');
 
 
-  // Initialize classes only once.
+  // ============ Initialization ============
   const markupConverter = useMemo(() => new MarkupConverter(), []);
 
   const conversionManager = useMemo(
     () => new ConversionManager(markupConverter, translate),
     [markupConverter]
   );
+
   const copyManagerRef = useRef(null)
   useEffect(() => {
     copyManagerRef.current = new CopyManager(setCopyStatus, 'Copy', 2000)
@@ -37,11 +39,11 @@ const App = () => {
     }
   }, [setCopyStatus])
 
+  // ============ Callbacks ============
   const handleCopy = async () => {
     const textToCopy = mode === 'html' ? htmlOutput : translatedText;
     await copyManagerRef.current.copy(textToCopy);
   }
-
 
   const handleConversionProcess = async () => {
     if (!inputText) {
@@ -62,7 +64,6 @@ const App = () => {
     setLoading(false);
   }
 
-
   const toggleMode = () => {
     setMode(mode => mode === 'html' ? 'translate' : 'html')
   }
@@ -70,6 +71,8 @@ const App = () => {
   const handleInputChange = event => {
     setInputText(event.target.value);
   };
+
+  // ============ Render ============
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
       <Header />
