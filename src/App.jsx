@@ -81,7 +81,7 @@ const App = () => {
           onChange={handleInputChange}
         />
 
-        <div className='flex flex-col gap-2 w-1/3'>
+        <div className='flex flex-col gap-2 w-1/8 my-auto'>
           <TranslateButton onClick={handleConversionProcess} loading={loading} />
         </div>
 

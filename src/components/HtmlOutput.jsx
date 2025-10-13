@@ -3,7 +3,7 @@ import React from 'react';
 const HtmlOutput = ({ htmlOutput }) => {
   return (
     <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
-      {htmlOutput}
+      {htmlOutput || ''}
     </pre>
   );
 };
