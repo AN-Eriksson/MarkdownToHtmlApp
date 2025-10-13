@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MarkdownInputField = ({ value, onChange }) => {
+const TextInputField = ({ value, onChange }) => {
   return (
     <form className='flex-1 border'>
       <textarea
@@ -13,4 +13,4 @@ const MarkdownInputField = ({ value, onChange }) => {
   );
 };
 
-export default MarkdownInputField;
+export default TextInputField;

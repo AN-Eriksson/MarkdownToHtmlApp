@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HtmlOutputField = ({ htmlOutput }) => {
+const HtmlOutput = ({ htmlOutput }) => {
   return (
     <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
       {htmlOutput}
@@ -8,4 +8,4 @@ const HtmlOutputField = ({ htmlOutput }) => {
   );
 };
 
-export default HtmlOutputField;
+export default HtmlOutput;
