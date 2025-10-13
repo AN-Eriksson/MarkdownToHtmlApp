@@ -16,7 +16,10 @@ export default class CopyManager {
       await navigator.clipboard.writeText(text || '');
       this.setStatus('Copied');
 
-      if (this.timeoutId) clearTimeout(this.timeoutId);
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+      }
+
       this.timeoutId = setTimeout(() => {
         this.setStatus(this.defaultLabel);
         this.timeoutId = null;

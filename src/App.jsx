@@ -57,7 +57,7 @@ const App = () => {
       setHtmlOutput(conversionManager.convertMarkdown(inputText));
 
     } else {
-      const translatedText = await conversionManager.translateText(inputText, 'es');
+      const translatedText = await conversionManager.translateText(inputText, 'sv');
       setTranslatedText(translatedText);
     }
 

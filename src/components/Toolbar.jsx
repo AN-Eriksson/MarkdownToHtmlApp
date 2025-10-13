@@ -1,4 +1,5 @@
 import React from 'react'
+import LanguagePicker from './LanguagePicker'
 
 const Toolbar = ({ onCopy, copyStatus, mode, onToggleMode }) => {
     return (
@@ -9,9 +10,10 @@ const Toolbar = ({ onCopy, copyStatus, mode, onToggleMode }) => {
              focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                 onClick={onToggleMode}
             >
-                {mode === 'html' ? 'Switch to Translate' : 'Switch to HTML'}
+                {mode === 'html' ? 'Switch to language translation' : 'Switch to Markdown -> html conversion'}
             </button>
 
+            {mode === 'translate' && <LanguagePicker />}
 
             <button
                 type="button"
