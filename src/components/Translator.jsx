@@ -1,26 +1,39 @@
 import translate from "translate";
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const Translator = ({ stringToTranslate, lang }) => {
     const [text, setText] = useState('')
+    const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
+    const handleTranslate = async () => {
         if (!stringToTranslate) {
             setText('')
             return
-        };
-
-        (async () => {
-            const translatedText = await translate(stringToTranslate, lang)
-            setText(translatedText)
-        })()
-    }, [stringToTranslate, lang])
+        }
+        setLoading(true)
+        const translated = await translate(stringToTranslate, lang)
+        setText(translated)
+        setLoading(false)
+    }
 
     return (
-        <pre className='flex-1 border whitespace-pre-wrap font-mono text-sm bg-amber-100'>
-            {text}
-        </pre>
+        <div className='flex-1 border bg-amber-100 p-4'>
+            <div className='mb-2'>
+                <button
+                    type='button'
+                    className='px-3 py-1 bg-blue-600 text-white rounded'
+                    onClick={handleTranslate}
+                    disabled={loading}
+                >
+                    {loading ? 'Translating…' : 'Translate'}
+                </button>
+            </div>
+
+            <pre className='whitespace-pre-wrap font-mono text-sm'>
+                {text}
+            </pre>
+        </div>
     )
 }
 
