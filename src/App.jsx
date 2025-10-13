@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import TextInputField from './components/TextInputField';
 import HtmlOutput from './components/HtmlOutput';
 import { MarkupConverter } from '@an-eriksson/markup-converter';
@@ -9,6 +9,7 @@ import TranslationOutput from './components/TranslationOutput';
 import translate from 'translate';
 import TranslateButton from './components/TranslateButton';
 import CopyManager from './lib/CopyManager';
+import ConversionManager from './lib/ConversionManager';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -21,10 +22,13 @@ const App = () => {
   const [translatedText, setTranslatedText] = useState('');
 
 
-  const markupConverter = new MarkupConverter();
+  // Initialize classes only once.
+  const markupConverter = useMemo(() => new MarkupConverter(), []);
 
-  // Get references to the lib classes
-
+  const conversionManager = useMemo(
+    () => new ConversionManager(markupConverter, translate),
+    [markupConverter]
+  );
   const copyManagerRef = useRef(null)
   useEffect(() => {
     copyManagerRef.current = new CopyManager(setCopyStatus, 'Copy', 2000)
@@ -41,17 +45,17 @@ const App = () => {
 
   const handleConversionProcess = async () => {
     if (!inputText) {
-      setHtmlOutput(markupConverter.convert(inputText));
+      setHtmlOutput('');
       setTranslatedText('');
       return;
     }
 
     setLoading(true);
     if (mode === 'html') {
-      setHtmlOutput(markupConverter.convert(inputText));
+      setHtmlOutput(conversionManager.convertMarkdown(inputText));
 
     } else {
-      const translatedText = await translate(inputText, 'es');
+      const translatedText = await conversionManager.translateText(inputText, 'es');
       setTranslatedText(translatedText);
     }
 
