@@ -5,7 +5,9 @@ import { MarkupConverter } from '@an-eriksson/markup-converter';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Toolbar from './components/Toolbar';
-import Translator from './components/Translator';
+import TranslationOutput from './components/TranslationOutput';
+import translate from 'translate';
+import TranslateButton from './components/TranslateButton';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -13,12 +15,13 @@ const App = () => {
   const [copyTimeoutId, setCopyTimeoutId] = useState(null);
 
   const [mode, setMode] = useState('translate');
+  const [loading, setLoading] = useState(false);
+
+  const [htmlOutput, setHtmlOutput] = useState('');
+  const [translatedText, setTranslatedText] = useState('');
 
 
   const markupConverter = new MarkupConverter();
-  const htmlOutput = inputText
-    ? markupConverter.convert(inputText) // Mask bug where MarkupConverter wraps empty line in <p> tags. Remove conditional when module is patched!
-    : '';
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(htmlOutput)
@@ -36,6 +39,26 @@ const App = () => {
     setCopyTimeoutId(id);
   }
 
+  const handleConversionProcess = async () => {
+    if (!inputText) {
+      setHtmlOutput(markupConverter.convert(inputText));
+      setTranslatedText('');
+      return;
+    }
+
+    setLoading(true);
+    if (mode === 'html') {
+      setHtmlOutput(markupConverter.convert(inputText));
+
+    } else {
+      const translatedText = await translate(inputText, 'es');
+      setTranslatedText(translatedText);
+    }
+
+    setLoading(false);
+  }
+
+
   const toggleMode = () => {
     setMode(mode => mode === 'html' ? 'translate' : 'html')
   }
@@ -47,8 +70,6 @@ const App = () => {
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
       <Header />
       <Toolbar
-        // onSave={handleSave}
-        // onLoad={handleLoad}
         onCopy={handleCopy}
         copyStatus={copyStatus}
         mode={mode}
@@ -59,13 +80,16 @@ const App = () => {
           onChange={handleInputChange}
         />
 
+        <div className='flex flex-col gap-2 w-1/3'>
+          <TranslateButton onClick={handleConversionProcess} loading={loading} />
+        </div>
+
         {mode === 'html' ? (
           <HtmlOutput
             htmlOutput={htmlOutput} />
         ) : (
-          <Translator
-            stringToTranslate={inputText}
-            lang={'es'}
+          <TranslationOutput
+            translatedText={translatedText}
           />
         )}
       </main>
