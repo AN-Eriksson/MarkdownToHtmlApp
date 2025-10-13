@@ -14,8 +14,18 @@ export default class ConversionManager {
   async translateText(text, langPair) {
     if (!text) return '';
 
-    const result = await this.translateFn(text, langPair);
-
-    return result;
+    let options;
+    if (typeof langPair === 'string') {
+      options = { to: langPair };
+    } else if (langPair && typeof langPair === 'object') {
+      options = {};
+      if (langPair.to) options.to = langPair.to;
+      if (langPair.from) options.from = langPair.from;
+    }
+    try {
+      return await this.translateFn(text, options);
+    } catch (error) {
+      console.error('ConversionManager.translateText error:', error);
+    }
   }
 }
