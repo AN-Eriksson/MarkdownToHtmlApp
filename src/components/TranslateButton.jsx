@@ -1,9 +1,13 @@
 import React from 'react';
 
 const TranslateButton = ({ onClick, loading, mode }) => {
-  const label = loading ?
-    (mode === 'html' ? 'Converting..' : 'Translating..')
-    : (mode === 'html' ? 'Convert' : 'Translate')
+  const label = loading
+    ? mode === 'html'
+      ? 'Converting..'
+      : 'Translating..'
+    : mode === 'html'
+      ? 'Convert'
+      : 'Translate';
 
   return (
     <button

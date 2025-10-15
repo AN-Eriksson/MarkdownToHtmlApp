@@ -5,23 +5,19 @@ import { MarkupConverter } from '@an-eriksson/markup-converter';
 import Footer from './components/Footer';
 import Toolbar from './components/Toolbar';
 import TranslationOutput from './components/TranslationOutput';
-import translate from 'translate';
+import translateFn from 'translate';
 import TranslateButton from './components/TranslateButton';
 import CopyManager from './lib/CopyManager';
 import ConversionManager from './lib/ConversionManager';
 import TranslationManager from './lib/TranslationManager';
+import useConvert from './hooks/useConvert';
+import useTranslate from './hooks/useTranslate';
 
 const App = () => {
   // ============ State ============
   const [inputText, setInputText] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy');
-
   const [mode, setMode] = useState('translate');
-  const [loading, setLoading] = useState(false);
-
-  const [htmlOutput, setHtmlOutput] = useState('');
-  const [translatedText, setTranslatedText] = useState('');
-
   const [langPair, setLangPair] = useState({ from: 'en', to: 'sv' });
 
   // ============ Initialization ============
@@ -33,17 +29,25 @@ const App = () => {
   );
 
   const translationManager = useMemo(
-    () => new TranslationManager(translate),
+    () => new TranslationManager(translateFn),
     []
   );
 
+  const {
+    htmlOutput,
+    convert,
+    clear: clearConvert,
+  } = useConvert(conversionManager);
+  const {
+    loading,
+    translatedText,
+    translate,
+    clear: clearTranslate,
+  } = useTranslate(translationManager);
+
   const copyManagerRef = useRef(null);
   useEffect(() => {
-    copyManagerRef.current = new CopyManager(
-      setCopyStatus,
-      'Copy',
-      2000
-    );
+    copyManagerRef.current = new CopyManager(setCopyStatus, 'Copy', 2000);
     return () => {
       copyManagerRef.current?.clear();
     };
@@ -57,23 +61,16 @@ const App = () => {
 
   const handleConversionProcess = async () => {
     if (!inputText) {
-      setHtmlOutput('');
-      setTranslatedText('');
+      clearConvert();
+      clearTranslate();
       return;
     }
 
-    setLoading(true);
     if (mode === 'html') {
-      setHtmlOutput(conversionManager.convertMarkdown(inputText));
+      convert(inputText);
     } else {
-      const translatedText = await translationManager.translateText(
-        inputText,
-        langPair
-      );
-      setTranslatedText(translatedText);
+      await translate(inputText, langPair);
     }
-
-    setLoading(false);
   };
 
   const toggleMode = () => {
@@ -107,12 +104,14 @@ const App = () => {
           <HtmlOutput
             htmlOutput={htmlOutput}
             onCopy={handleCopy}
-            copyStatus={copyStatus} />
+            copyStatus={copyStatus}
+          />
         ) : (
           <TranslationOutput
             translatedText={translatedText}
             onCopy={handleCopy}
-            copyStatus={copyStatus} />
+            copyStatus={copyStatus}
+          />
         )}
       </main>
       <Footer />

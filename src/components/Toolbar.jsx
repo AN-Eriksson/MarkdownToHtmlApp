@@ -1,11 +1,7 @@
 import React from 'react';
 import LanguagePicker from './LanguagePicker';
 
-const Toolbar = ({
-  mode,
-  onToggleMode,
-  onLanguageSelect,
-}) => {
+const Toolbar = ({ mode, onToggleMode, onLanguageSelect }) => {
   return (
     <div className='flex gap-2 mb-4 mt-4'>
       <button

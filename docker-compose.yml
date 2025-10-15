@@ -1,9 +1,9 @@
-version: "1.0"
+version: '1.0'
 services:
   web:
     build: .
     image: markdown-to-html-app:latest
     container_name: markdown-to-html-app
     ports:
-      - "3005:80"
+      - '3005:80'
     restart: unless-stopped

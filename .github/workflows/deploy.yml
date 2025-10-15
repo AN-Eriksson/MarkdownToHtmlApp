@@ -1,9 +1,9 @@
 # This is a GitHub CI/CD configuration file.
 
 # The following secrets are expected to be set in the GitHub CI/CD settings:
-  #PRODUCTION_HOST - The IP address of the production server.
-  #PRODUCTION_HOST_USER - The user to connect to the production server.
-  #PRODUCTION_HOST_PATH - The path on the production server where the application is located.
+#PRODUCTION_HOST - The IP address of the production server.
+#PRODUCTION_HOST_USER - The user to connect to the production server.
+#PRODUCTION_HOST_PATH - The path on the production server where the application is located.
 
 name: CI/CD Pipeline
 
