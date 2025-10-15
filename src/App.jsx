@@ -9,11 +9,12 @@ import translate from 'translate';
 import TranslateButton from './components/TranslateButton';
 import CopyManager from './lib/CopyManager';
 import ConversionManager from './lib/ConversionManager';
+import TranslationManager from './lib/TranslationManager';
 
 const App = () => {
   // ============ State ============
   const [inputText, setInputText] = useState('');
-  const [copyStatus, setCopyStatus] = useState('Copy output');
+  const [copyStatus, setCopyStatus] = useState('Copy');
 
   const [mode, setMode] = useState('translate');
   const [loading, setLoading] = useState(false);
@@ -27,15 +28,20 @@ const App = () => {
   const markupConverter = useMemo(() => new MarkupConverter(), []);
 
   const conversionManager = useMemo(
-    () => new ConversionManager(markupConverter, translate),
+    () => new ConversionManager(markupConverter),
     [markupConverter]
+  );
+
+  const translationManager = useMemo(
+    () => new TranslationManager(translate),
+    []
   );
 
   const copyManagerRef = useRef(null);
   useEffect(() => {
     copyManagerRef.current = new CopyManager(
       setCopyStatus,
-      'Copy output',
+      'Copy',
       2000
     );
     return () => {
@@ -60,7 +66,7 @@ const App = () => {
     if (mode === 'html') {
       setHtmlOutput(conversionManager.convertMarkdown(inputText));
     } else {
-      const translatedText = await conversionManager.translateText(
+      const translatedText = await translationManager.translateText(
         inputText,
         langPair
       );
