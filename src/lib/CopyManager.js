@@ -13,20 +13,28 @@ export default class CopyManager {
 
   async copy(text = '') {
     try {
-      await navigator.clipboard.writeText(text || '');
+      await this.#writeToClipboard(text);
       this.setStatus('Copied');
 
       if (this.timeoutId) {
         clearTimeout(this.timeoutId);
       }
 
-      this.timeoutId = setTimeout(() => {
-        this.setStatus(this.defaultLabel);
-        this.timeoutId = null;
-      }, this.duration);
+      this.#resetTimer();
     } catch {
       this.setStatus('Copy failed');
     }
+  }
+
+  #writeToClipboard(text) {
+    return navigator.clipboard.writeText(text || '');
+  }
+
+  #resetTimer() {
+    this.timeoutId = setTimeout(() => {
+      this.setStatus(this.defaultLabel);
+      this.timeoutId = null;
+    }, this.duration);
   }
 
   clear() {
