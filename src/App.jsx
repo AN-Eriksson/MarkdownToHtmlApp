@@ -73,10 +73,6 @@ const App = () => {
     }
   };
 
-  const toggleMode = () => {
-    setMode(mode => (mode === 'html' ? 'translate' : 'html'));
-  };
-
   const handleInputChange = event => {
     setInputText(event.target.value);
   };
@@ -84,15 +80,15 @@ const App = () => {
   // ============ Render ============
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
-      <Toolbar
-        mode={mode}
-        onToggleMode={toggleMode}
-        onLanguageSelect={pair => setLangPair(pair)}
-      />
       <main className='flex gap-4 flex-1 w-full px-4'>
         <TextInputField value={inputText} onChange={handleInputChange} />
 
         <div className='flex flex-col gap-2 w-1/8 my-auto'>
+          <Toolbar
+            mode={mode}
+            onModeChange={setMode}
+            onLanguageSelect={pair => setLangPair(pair)}
+          />
           <TranslateButton
             onClick={handleConversionProcess}
             loading={loading}

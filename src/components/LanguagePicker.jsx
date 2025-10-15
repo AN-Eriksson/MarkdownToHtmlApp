@@ -17,13 +17,12 @@ const LanguagePicker = ({ onSelect }) => {
     <>
       <button
         type='button'
-        className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2'
+        className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center justify-center gap-2'
         onClick={() => setOpen(true)}
       >
-        <span className='text-lg leading-none'>
+        <span className='text-lg leading-none text-center'>
           {getFlag(from)} → {getFlag(to)}
         </span>
-        <span className='sr-only'>Pick languages</span>
       </button>
 
       {open && (
