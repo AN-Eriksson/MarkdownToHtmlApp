@@ -1,16 +1,61 @@
-# React + Vite
+# MarkdownToHtmlApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Small React + Vite app that converts Markdown to HTML and can translate Markdown text between languages.
 
-Currently, two official plugins are available:
+The app uses the @an-eriksson/markup-converter module for Markdown conversion.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Convert Markdown to HTML (client-side)  
+- Translate Markdown text between a few different languages
+- Upload `.md` files and load content into the editor  
 
-## React Compiler
+## Quick start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Install
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+Run dev server
+```bash
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Usage
+- Type or paste Markdown into the editor.
+- Choose mode in the toolbar: Translate or Markdown → HTML.
+- Upload a `.md` file with the Upload button to populate the editor.
+- Click Translate / Convert to run processing.
+- Use Copy to copy the active output (translation or HTML) to clipboard.
+
+## Files & architecture
+- src/components — presentational components (TextInputField, Toolbar, LanguagePicker, outputs, etc.)
+- src/lib — classes that handle specific functionality (MarkdownDocument, LangPair, CopyManager, ConversionManager, TranslationManager)
+- src/hooks — custom hooks that manage async work and state (`useConvert`, `useTranslate`)
+- Uploaded `.md` files are read via a FileReader-based parser and injected into the editor state as a MarkdownDocument object.
+
+## Configuration
+- The translation manager uses an injected translation function. Check `src/lib/TranslationManager.js` to configure which translation provider to use.
+- Clipboard functions require a secure context (https or localhost) for navigator.clipboard to work reliably, otherwise the copying will fail.
+
+## Docker
+A docker-compose file is included in this repo.
+
+Start the development container:
+```bash
+# from repo root
+docker compose -f docker-compose.yml up --build -d
+```
+
+The compose setup runs the Vite dev server and maps port 5173. Open http://localhost:5173 in your browser.
+
+Stop and remove containers:
+```bash
+docker compose down
+```
+
+## CI / CD (deploy.yml)
+
+A GitHub Actions workflow is provided to build and deploy the app on an Ubuntu server on pushes to the main branch.
+
+See ``deploy.yml`` for more information.
