@@ -77,6 +77,10 @@ const App = () => {
     setInputText(event.target.value);
   };
 
+  const handleFileUpload = text => {
+    setInputText(text);
+  }
+
   // ============ Render ============
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
@@ -88,6 +92,7 @@ const App = () => {
             mode={mode}
             onModeChange={setMode}
             onLanguageSelect={pair => setLangPair(pair)}
+            onFile={handleFileUpload}
           />
           <TranslateButton
             onClick={handleConversionProcess}

@@ -1,9 +1,20 @@
 import React from 'react';
 import LanguagePicker from './LanguagePicker';
+import FileUpload from './FileUpload';
 
-const Toolbar = ({ mode, onModeChange, onLanguageSelect }) => {
+const Toolbar = ({ mode, onModeChange, onLanguageSelect, onFile }) => {
+
+  const onFileUpload = async (file) => {
+    const fileTextContent = await file.text();
+    onFile(fileTextContent)  
+  };
+
   return (
     <div className='flex flex-col gap-2 mb-4 mt-4'>
+      <FileUpload
+        onFileUpload={onFileUpload} />
+
+      <h1>Choose mode:</h1>
       <div className='flex flex-col items-center gap-4'>
         <label className='inline-flex items-center gap-2'>
           <input
