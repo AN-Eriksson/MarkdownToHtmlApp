@@ -13,13 +13,14 @@ import TranslationManager from './lib/TranslationManager';
 import useConvert from './hooks/useConvert';
 import useTranslate from './hooks/useTranslate';
 import LanguagePair from './lib/LanguagePair';
+import MarkdownDocument from './lib/MarkdownDocument'
 
 const App = () => {
   // ============ State ============
-  const [inputText, setInputText] = useState('');
+  const [inputDocument, setInputDocument] = useState(new MarkdownDocument(''));
   const [copyStatus, setCopyStatus] = useState('Copy');
   const [mode, setMode] = useState('translate');
-  const [langPair, setLangPair] = useState(new LanguagePair('en', 'sv'));
+  const [languagePair, setLanguagePair] = useState(new LanguagePair('en', 'sv'));
 
   // ============ Initialization ============
   const markupConverter = useMemo(() => new MarkupConverter(), []);
@@ -61,38 +62,38 @@ const App = () => {
   };
 
   const handleConversionProcess = async () => {
-    if (!inputText) {
+    if (!inputDocument) {
       clearConvert();
       clearTranslate();
       return;
     }
 
     if (mode === 'html') {
-      convert(inputText);
+      convert(inputDocument);
     } else {
-      await translate(inputText, langPair);
+      await translate(inputDocument, languagePair);
     }
   };
 
   const handleInputChange = event => {
-    setInputText(event.target.value);
+    setInputDocument(new MarkdownDocument(event.target.value));
   };
 
   const handleFileUpload = text => {
-    setInputText(text);
+    setInputDocument(text);
   }
 
   // ============ Render ============
   return (
     <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200 pt-4'>
       <main className='flex gap-4 flex-1 w-full px-4'>
-        <TextInputField value={inputText} onChange={handleInputChange} />
+        <TextInputField value={inputDocument} onChange={handleInputChange} />
 
         <div className='flex flex-col gap-2 w-1/8 my-auto'>
           <Toolbar
             mode={mode}
             onModeChange={setMode}
-            onLanguageSelect={pair => setLangPair(pair)}
+            onLanguageSelect={pair => setLanguagePair(pair)}
             onFile={handleFileUpload}
           />
           <TranslateButton

@@ -5,7 +5,7 @@ export default class ConversionManager {
     this.markupConverter = markupConverter;
   }
 
-  convertMarkdown(text) {
-    return text ? this.markupConverter.convert(text) : '';
+  convertMarkdown(inputDocument) {
+    return inputDocument ? this.markupConverter.convert(inputDocument.toString()) : '';
   }
 }

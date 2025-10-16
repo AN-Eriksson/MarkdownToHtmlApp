@@ -5,13 +5,13 @@ export default class TranslationManager {
     this.translateFn = translateFn;
   }
 
-  async translateText(text, langPair) {
+  async translateText(text, languagePair) {
     if (!text) {
       return '';
     }
 
     try {
-      return await this.translateFn(text, langPair.toObject());
+      return await this.translateFn(text, languagePair.toObject());
     } catch (error) {
       console.error('ConversionManager.translateText error:', error);
     }

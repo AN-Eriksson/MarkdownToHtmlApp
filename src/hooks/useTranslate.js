@@ -4,16 +4,19 @@ export default function useTranslate(translationManager) {
   const [loading, setLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState('');
 
-  const translate = async (text, langPair) => {
-    if (!text) {
+  const translate = async (inputDocument, languagePair) => {
+    if (!inputDocument) {
       setTranslatedText('');
       return '';
     }
+
+    const text = inputDocument.toString()
+
     setLoading(true);
     try {
-      const res = await translationManager.translateText(text, langPair);
-      setTranslatedText(res);
-      return res;
+      const translatedText = await translationManager.translateText(text, languagePair);
+      setTranslatedText(translatedText);
+      return translatedText;
     } finally {
       setLoading(false);
     }

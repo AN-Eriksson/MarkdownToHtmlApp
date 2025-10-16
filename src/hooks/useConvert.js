@@ -3,7 +3,8 @@ import { useState } from 'react';
 export default function useConvert(conversionManager) {
   const [htmlOutput, setHtmlOutput] = useState('');
 
-  const convert = text => {
+  const convert = inputDocument => {
+    const text = inputDocument.toString()
     setHtmlOutput(text ? conversionManager.convertMarkdown(text) : '');
   };
 
