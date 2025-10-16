@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FLAG_MAP, LANGUAGES } from '../assets/LanguageAndFlagConstants';
+import { FLAG_MAP, LANGUAGES } from '../lib/LanguageAndFlagConstants';
 import LanguagePair from '../lib/LanguagePair';
 
 const getFlag = code => FLAG_MAP[code];

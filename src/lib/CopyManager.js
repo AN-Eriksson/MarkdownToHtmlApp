@@ -27,6 +27,10 @@ export default class CopyManager {
   }
 
   #writeToClipboard(text) {
+    if (!navigator?.clipboard?.writeText) {
+      throw new Error('Clipboard API not available');
+    }
+
     return navigator.clipboard.writeText(text || '');
   }
 
