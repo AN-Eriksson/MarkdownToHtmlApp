@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FLAG_MAP, LANGUAGES } from '../assets/LanguageAndFlagConstants';
+import LanguagePair from '../lib/LanguagePair';
 
 const getFlag = code => FLAG_MAP[code];
 
@@ -9,7 +10,7 @@ const LanguagePicker = ({ onSelect }) => {
   const [to, setTo] = useState('sv');
 
   const confirm = () => {
-    onSelect && onSelect({ from, to });
+    onSelect(new LanguagePair(from, to));
     setOpen(false);
   };
 

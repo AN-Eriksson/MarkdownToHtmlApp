@@ -12,13 +12,14 @@ import ConversionManager from './lib/ConversionManager';
 import TranslationManager from './lib/TranslationManager';
 import useConvert from './hooks/useConvert';
 import useTranslate from './hooks/useTranslate';
+import LanguagePair from './lib/LanguagePair';
 
 const App = () => {
   // ============ State ============
   const [inputText, setInputText] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy');
   const [mode, setMode] = useState('translate');
-  const [langPair, setLangPair] = useState({ from: 'en', to: 'sv' });
+  const [langPair, setLangPair] = useState(new LanguagePair('en', 'sv'));
 
   // ============ Initialization ============
   const markupConverter = useMemo(() => new MarkupConverter(), []);
@@ -83,7 +84,7 @@ const App = () => {
 
   // ============ Render ============
   return (
-    <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200'>
+    <div className='flex flex-col items-center min-h-screen gap-4 bg-gray-200 pt-4'>
       <main className='flex gap-4 flex-1 w-full px-4'>
         <TextInputField value={inputText} onChange={handleInputChange} />
 

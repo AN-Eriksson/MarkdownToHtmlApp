@@ -10,23 +10,10 @@ export default class TranslationManager {
       return '';
     }
 
-    const options = this.#normalizeLangPair(langPair);
     try {
-      return await this.translateFn(text, options);
+      return await this.translateFn(text, langPair.toObject());
     } catch (error) {
       console.error('ConversionManager.translateText error:', error);
     }
-  }
-
-  #normalizeLangPair(langPair) {
-    if (typeof langPair === 'string') {
-      return { to: langPair };
-    } else if (langPair && typeof langPair === 'object') {
-      const options = {};
-      if (langPair.to) options.to = langPair.to;
-      if (langPair.from) options.from = langPair.from;
-      return options;
-    }
-    return {};
   }
 }
