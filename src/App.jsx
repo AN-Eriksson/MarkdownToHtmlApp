@@ -83,7 +83,7 @@ const App = () => {
   };
 
   const handleFileUpload = text => {
-    setInputDocument(text);
+    setInputDocument(new MarkdownDocument(text));
   };
 
   // ============ Render ============
