@@ -1,3 +1,5 @@
+import TranslationError from "./TranslationError";
+
 export default class TranslationManager {
   translateFn;
 
@@ -12,8 +14,8 @@ export default class TranslationManager {
 
     try {
       return await this.translateFn(text, languagePair.toObject());
-    } catch (error) {
-      console.error('ConversionManager.translateText error:', error);
+    } catch {
+      throw new TranslationError('Failed to translate text')
     }
   }
 }

@@ -1,3 +1,5 @@
+import ConversionError from "./ConversionError";
+
 export default class ConversionManager {
   markupConverter;
 
@@ -6,8 +8,13 @@ export default class ConversionManager {
   }
 
   convertMarkdown(inputDocument) {
-    return inputDocument
-      ? this.markupConverter.convert(inputDocument.toString())
-      : '';
+    try {
+      return inputDocument
+        ? this.markupConverter.convert(inputDocument.toString())
+        : '';
+    } catch {
+      throw new ConversionError('Failed to convert text')
+      
+    }
   }
 }
