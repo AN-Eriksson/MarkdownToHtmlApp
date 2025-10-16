@@ -1,9 +1,9 @@
-export default class MarkdownDocument {
+export default class ProcessedDocument {
   textContent;
 
   constructor(textContent) {
     if (typeof textContent !== 'string') {
-      throw new TypeError('MarkdownDocument text content must be a string');
+      throw new TypeError('ProcessedDocument text content must be a string');
     }
 
     this.textContent = textContent;

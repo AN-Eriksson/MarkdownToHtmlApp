@@ -13,14 +13,16 @@ import TranslationManager from './lib/TranslationManager';
 import useConvert from './hooks/useConvert';
 import useTranslate from './hooks/useTranslate';
 import LanguagePair from './lib/LanguagePair';
-import MarkdownDocument from './lib/MarkdownDocument'
+import MarkdownDocument from './lib/MarkdownDocument';
 
 const App = () => {
   // ============ State ============
   const [inputDocument, setInputDocument] = useState(new MarkdownDocument(''));
   const [copyStatus, setCopyStatus] = useState('Copy');
   const [mode, setMode] = useState('translate');
-  const [languagePair, setLanguagePair] = useState(new LanguagePair('en', 'sv'));
+  const [languagePair, setLanguagePair] = useState(
+    new LanguagePair('en', 'sv')
+  );
 
   // ============ Initialization ============
   const markupConverter = useMemo(() => new MarkupConverter(), []);
@@ -36,13 +38,13 @@ const App = () => {
   );
 
   const {
-    htmlOutput,
+    htmlDocument,
     convert,
     clear: clearConvert,
   } = useConvert(conversionManager);
   const {
     loading,
-    translatedText,
+    translatedDocument,
     translate,
     clear: clearTranslate,
   } = useTranslate(translationManager);
@@ -57,7 +59,8 @@ const App = () => {
 
   // ============ Callbacks ============
   const handleCopy = async () => {
-    const textToCopy = mode === 'html' ? htmlOutput : translatedText;
+    const textToCopy =
+      mode === 'html' ? htmlDocument.toString() : translatedDocument.toString();
     await copyManagerRef.current.copy(textToCopy);
   };
 
@@ -81,7 +84,7 @@ const App = () => {
 
   const handleFileUpload = text => {
     setInputDocument(text);
-  }
+  };
 
   // ============ Render ============
   return (
@@ -105,13 +108,13 @@ const App = () => {
 
         {mode === 'html' ? (
           <HtmlOutput
-            htmlOutput={htmlOutput}
+            htmlDocument={htmlDocument}
             onCopy={handleCopy}
             copyStatus={copyStatus}
           />
         ) : (
           <TranslationOutput
-            translatedText={translatedText}
+            translatedDocument={translatedDocument}
             onCopy={handleCopy}
             copyStatus={copyStatus}
           />

@@ -1,13 +1,13 @@
 import React from 'react';
 
-const HtmlOutput = ({ htmlOutput, onCopy, copyStatus }) => {
+const HtmlOutput = ({ htmlDocument, onCopy, copyStatus }) => {
   return (
     <div className='flex-1 border rounded-xl overflow-hidden bg-amber-100 p-2'>
       <pre className='whitespace-pre-wrap font-mono text-sm p-4'>
-        {htmlOutput || ''}
+        {htmlDocument?.toString() || ''}
       </pre>
 
-      {htmlOutput && (
+      {htmlDocument && (
         <button
           type='button'
           className='mt-4 px-4 py-2 w-34 bg-gray-600 text-white rounded hover:bg-gray-700

@@ -1,28 +1,33 @@
 import { useState } from 'react';
+import ProcessedDocument from '../lib/ProcessedDocument';
 
 export default function useTranslate(translationManager) {
   const [loading, setLoading] = useState(false);
-  const [translatedText, setTranslatedText] = useState('');
+  const [translatedDocument, setTranslatedDocument] = useState(null);
 
   const translate = async (inputDocument, languagePair) => {
     if (!inputDocument) {
-      setTranslatedText('');
-      return '';
+      setTranslatedDocument(null);
+      return null;
     }
 
-    const text = inputDocument.toString()
+    const text = inputDocument.toString();
 
     setLoading(true);
     try {
-      const translatedText = await translationManager.translateText(text, languagePair);
-      setTranslatedText(translatedText);
-      return translatedText;
+      const translatedText = await translationManager.translateText(
+        text,
+        languagePair
+      );
+      const translatedDocumentObject = new ProcessedDocument(translatedText);
+      setTranslatedDocument(translatedDocumentObject);
+      return translatedDocumentObject;
     } finally {
       setLoading(false);
     }
   };
 
-  const clear = () => setTranslatedText('');
+  const clear = () => setTranslatedDocument('');
 
-  return { loading, translatedText, translate, clear };
+  return { loading, translatedDocument, translate, clear };
 }

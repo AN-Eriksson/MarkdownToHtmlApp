@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import ProcessedDocument from '../lib/ProcessedDocument';
 
 export default function useConvert(conversionManager) {
-  const [htmlOutput, setHtmlOutput] = useState('');
+  const [htmlDocument, setHtmlDocument] = useState('');
 
   const convert = inputDocument => {
-    const text = inputDocument.toString()
-    setHtmlOutput(text ? conversionManager.convertMarkdown(text) : '');
+    const text = inputDocument.toString();
+    const convertedDocumentObject = conversionManager.convertMarkdown(text);
+    setHtmlDocument(new ProcessedDocument(convertedDocumentObject));
   };
 
-  const clear = () => setHtmlOutput('');
+  const clear = () => setHtmlDocument('');
 
-  return { htmlOutput, convert, clear };
+  return { htmlDocument, convert, clear };
 }

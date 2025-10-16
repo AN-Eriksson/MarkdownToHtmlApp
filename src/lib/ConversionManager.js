@@ -6,6 +6,8 @@ export default class ConversionManager {
   }
 
   convertMarkdown(inputDocument) {
-    return inputDocument ? this.markupConverter.convert(inputDocument.toString()) : '';
+    return inputDocument
+      ? this.markupConverter.convert(inputDocument.toString())
+      : '';
   }
 }
