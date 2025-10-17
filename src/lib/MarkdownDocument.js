@@ -1,3 +1,11 @@
+/**
+ * Represents a Markdown document containing raw markdown text.
+ *
+ * @class MarkdownDocument
+ *
+ * @param {string} textContent - The markdown text to store in this document.
+ * @throws {TypeError} If `textContent` is not a string.
+ */
 export default class MarkdownDocument {
   textContent;
 

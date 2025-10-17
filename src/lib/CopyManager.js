@@ -1,5 +1,14 @@
+/**
+ * Manages copying text to the system clipboard and temporarily the button text with a status label to indicate success or failure.
+ *
+ * @class CopyManager
+ *
+ * @param {(label: string) => void} setStatus - Callback used to update UI state. Called with status labels as strings.
+ * @param {string} [defaultLabel='Copy output'] - Label to restore after the success indicator expires.
+ * @param {number} [duration=2000] - Time in milliseconds that the success status ('Copied') is shown before reverting to defaultLabel.
+ */
 export default class CopyManager {
-  setStatus = () => {}; // This is the callback function the class needs to use to update react state. Provided in constructor when class in initialized.
+  setStatus;
   defaultLabel;
   duration;
   timeoutId;

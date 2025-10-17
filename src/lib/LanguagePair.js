@@ -1,3 +1,14 @@
+/**
+ * Represents a translation language pair using ISO 639-1 two-letter codes.
+ *
+ * @class LanguagePair
+ *
+ * @param {string} fromLanguage - Two-letter ISO 639 code for the source language.
+ * @param {string} toLanguage - Two-letter ISO 639 code for the target language.
+ *
+ * @throws {TypeError} If either fromLanguage or toLanguage is not a string.
+ * @throws {RangeError} If either language code is not exactly 2 characters long.
+ */
 export default class LanguagePair {
   fromLanguage;
   toLanguage;

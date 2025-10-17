@@ -1,5 +1,14 @@
 import TranslationError from "./TranslationError";
 
+/**
+ * Manages translation operations by delegating to a provided translation function.
+ *
+ * The instance stores a translateFn which is used by translateText to perform
+ * the translation.
+ *
+ * @class TranslationManager
+ * @param {function(string, Object): Promise<string>} translateFn - Function that performs translation. Receives (text, languagePairObject) and returns a Promise resolving to the translated text.
+ */
 export default class TranslationManager {
   translateFn;
 

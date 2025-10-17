@@ -16,7 +16,7 @@ import LanguagePair from './lib/LanguagePair';
 import MarkdownDocument from './lib/MarkdownDocument';
 
 const App = () => {
-  // ============ State ============
+  // ============ React state ============
   const [inputDocument, setInputDocument] = useState(new MarkdownDocument(''));
   const [copyStatus, setCopyStatus] = useState('Copy');
   const [mode, setMode] = useState('translate');
@@ -24,7 +24,7 @@ const App = () => {
     new LanguagePair('en', 'sv')
   );
 
-  // ============ Initialization ============
+  // ============ Initialization of classes and hooks ============
   const markupConverter = useMemo(() => new MarkupConverter(), []);
 
   const conversionManager = useMemo(
@@ -42,6 +42,7 @@ const App = () => {
     convert,
     clear: clearConvert,
   } = useConvert(conversionManager);
+  
   const {
     loading,
     translatedDocument,
@@ -57,7 +58,7 @@ const App = () => {
     };
   }, [setCopyStatus]);
 
-  // ============ Callbacks ============
+  // ============ Callbacks passed to UI components ============
   const handleCopy = async () => {
     const textToCopy =
       mode === 'html' ? htmlDocument.toString() : translatedDocument.toString();

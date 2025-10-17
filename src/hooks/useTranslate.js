@@ -1,3 +1,12 @@
+/**
+ * useTranslate hook
+ *
+ * - Translates a MarkdownDocument into a ProcessedDocument and keeps the result in hook state.
+ * - Exposes: { loading, translatedDocument, translate(inputDocument, languagePair), clear() }.
+ *
+ * @param {Object} translationManager - object with a translateText(text, languagePair) method
+ * @returns {Object} { loading: boolean, translatedDocument: ProcessedDocument, translate: Function, clear: Function }
+ */
 import { useState } from 'react';
 import ProcessedDocument from '../lib/ProcessedDocument';
 
@@ -27,7 +36,7 @@ export default function useTranslate(translationManager) {
     }
   };
 
-  const clear = () => setTranslatedDocument('');
+  const clear = () => setTranslatedDocument(null);
 
   return { loading, translatedDocument, translate, clear };
 }
