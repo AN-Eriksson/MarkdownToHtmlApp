@@ -1,5 +1,17 @@
 import React from 'react';
 
+/**
+ * HtmlOutput component
+ *
+ * Renders a container showing an HTML document and a copy button when content is present.
+ *
+ * @param {Object} props - Component props.
+ * @param {string|Object|null|undefined} props.htmlDocument - The HTML content to display. The value is rendered using its toString() method; when falsy an empty string is shown and the copy button is hidden.
+ * @param {Function} props.onCopy - Callback invoked when the copy button is clicked.
+ * @param {string} props.copyStatus - Label shown on the copy button.
+ *
+ * @returns {JSX.Element} The rendered HtmlOutput component.
+ */
 const HtmlOutput = ({ htmlDocument, onCopy, copyStatus }) => {
   return (
     <div className='flex-1 border rounded-xl overflow-hidden bg-amber-100 p-2'>

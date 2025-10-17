@@ -2,6 +2,20 @@ import React from 'react';
 import LanguagePicker from './LanguagePicker';
 import FileUpload from './FileUpload';
 
+/**
+ * Toolbar component.
+ *
+ * Renders a file upload control, a pair of mode-selection radio buttons, and
+ * (when in translate mode) a language picker.
+ *
+ * @param {Object} props - Component props.
+ * @param {'translate'|'html'} props.mode - Current mode; 'translate' displays the LanguagePicker, 'html' selects Markdown → HTML mode.
+ * @param {(mode: 'translate'|'html') => void} props.onModeChange - Callback invoked when the mode radio selection changes. Receives the newly selected mode.
+ * @param {(language: string) => void} props.onLanguageSelect - Callback invoked when a language is chosen from the LanguagePicker.
+ * @param {(fileText: string) => void} props.onFile - Callback invoked with the text content of an uploaded file. The component reads the File using the File.text() API and passes the resulting string to this handler.
+ *
+ * @returns {JSX.Element} The toolbar UI.
+ */
 const Toolbar = ({ mode, onModeChange, onLanguageSelect, onFile }) => {
   const onFileUpload = async file => {
     const fileTextContent = await file.text();

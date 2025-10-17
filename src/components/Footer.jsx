@@ -1,5 +1,14 @@
 import React from 'react';
 
+/**
+ * Footer component.
+ *
+ * Renders the application's page footer with text and the current year.
+ * The year is computed at render time using the system clock.
+ *
+ * @component
+ * @returns {JSX.Element} A footer element containing centered attribution and a dynamically generated copyright year.
+ */
 const Footer = () => {
   const year = new Date().getFullYear();
   return (

@@ -4,6 +4,21 @@ import LanguagePair from '../lib/LanguagePair';
 
 const getFlag = code => FLAG_MAP[code];
 
+/**
+ * LanguagePicker
+ *
+ * A component that renders a button showing a "from → to" language
+ * pair (using flag icons via getFlag). When clicked, it opens a modal allowing the
+ * user to choose the source and target languages from a list (LANGUAGES). The modal
+ * exposes "Cancel" and "OK" actions; "Cancel" closes the modal without changes,
+ * and "OK" invokes the provided onSelect callback with a new LanguagePair constructed
+ * from the selected language codes and then closes the modal.
+ *
+ * @param {Object} props - Component props.
+ * @param {(pair: LanguagePair) => void} props.onSelect - Callback invoked with a
+ *   LanguagePair when the user confirms their selection.
+ * @returns {JSX.Element} A button that toggles a language selection modal and the modal UI.
+ */
 const LanguagePicker = ({ onSelect }) => {
   const [openModal, setOpenModal] = useState(false);
   const [fromLanguage, setFromLanguage] = useState('en');

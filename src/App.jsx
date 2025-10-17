@@ -42,7 +42,7 @@ const App = () => {
     convert,
     clear: clearConvert,
   } = useConvert(conversionManager);
-  
+
   const {
     loading,
     translatedDocument,

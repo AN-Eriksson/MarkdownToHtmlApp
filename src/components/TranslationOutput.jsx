@@ -1,5 +1,18 @@
 import React from 'react';
 
+/**
+ * TranslationOutput
+ *
+ * Displays a translated document inside a monospace <pre> block and conditionally
+ * renders a "copy" button when `translatedDocument` is present.
+ *
+ *
+ * @param {Object} props - Component props.
+ * @param {string|Object|null|undefined} props.translatedDocument - The translated content to display. 
+ * @param {() => void} props.onCopy - Callback invoked when the copy button is clicked.
+ * @param {string} props.copyStatus - Label text shown inside the copy button (e.g. "Copy", "Copied").
+ * @returns {JSX.Element} The rendered TranslationOutput component.
+ */
 const TranslationOutput = ({ translatedDocument, onCopy, copyStatus }) => {
   return (
     <div className='flex-1 border rounded-xl overflow-hidden bg-amber-100 p-2'>
