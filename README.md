@@ -7,7 +7,10 @@ The app uses the @an-eriksson/markup-converter module for Markdown conversion.
 ## Features
 - Convert Markdown to HTML (client-side)  
 - Translate Markdown text between a few different languages
-- Upload `.md` files and load content into the editor  
+- Upload `.md` files and load content into the editor
+
+## Deployed version
+[Translator](https://translator.andreaseriksson.me)
 
 ## Quick start
 
@@ -59,3 +62,7 @@ docker compose down
 A GitHub Actions workflow is provided to build and deploy the app on an Ubuntu server on pushes to the main branch.
 
 See ``deploy.yml`` for more information.
+
+## Wiki
+
+See the project Wiki for additional information.
