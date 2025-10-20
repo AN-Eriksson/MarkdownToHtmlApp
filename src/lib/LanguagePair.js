@@ -24,7 +24,7 @@ export default class LanguagePair {
       );
     }
 
-    this.fromLanguage = fromLanguage.toLowerCase();
+    this.#fromLanguage = fromLanguage.toLowerCase();
     this.#toLanguage = toLanguage.toLowerCase();
   }
 
