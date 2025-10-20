@@ -10,8 +10,8 @@
  * @throws {RangeError} If either language code is not exactly 2 characters long.
  */
 export default class LanguagePair {
-  fromLanguage;
-  toLanguage;
+  #fromLanguage;
+  #toLanguage;
 
   constructor(fromLanguage, toLanguage) {
     if (typeof fromLanguage !== 'string' || typeof toLanguage !== 'string') {
@@ -25,10 +25,10 @@ export default class LanguagePair {
     }
 
     this.fromLanguage = fromLanguage.toLowerCase();
-    this.toLanguage = toLanguage.toLowerCase();
+    this.#toLanguage = toLanguage.toLowerCase();
   }
 
   toObject() {
-    return { from: this.fromLanguage, to: this.toLanguage };
+    return { from: this.#fromLanguage, to: this.#toLanguage };
   }
 }

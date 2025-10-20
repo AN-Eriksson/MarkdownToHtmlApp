@@ -8,30 +8,30 @@
  * @param {number} [duration=2000] - Time in milliseconds that the success status ('Copied') is shown before reverting to defaultLabel.
  */
 export default class CopyManager {
-  setStatus;
-  defaultLabel;
-  duration;
-  timeoutId;
+  #setStatus;
+  #defaultLabel;
+  #duration;
+  #timeoutId;
 
   constructor(setStatus, defaultLabel = 'Copy output', duration = 2000) {
-    this.setStatus = setStatus;
-    this.defaultLabel = defaultLabel;
-    this.duration = duration;
-    this.timeoutId = null;
+    this.#setStatus = setStatus;
+    this.#defaultLabel = defaultLabel;
+    this.#duration = duration;
+    this.#timeoutId = null;
   }
 
   async copy(text = '') {
     try {
       await this.#writeToClipboard(text);
-      this.setStatus('Copied');
+      this.#setStatus('Copied');
 
-      if (this.timeoutId) {
-        clearTimeout(this.timeoutId);
+      if (this.#timeoutId) {
+        clearTimeout(this.#timeoutId);
       }
 
       this.#resetTimer();
     } catch {
-      this.setStatus('Copy failed');
+      this.#setStatus('Copy failed');
     }
   }
 
@@ -44,16 +44,16 @@ export default class CopyManager {
   }
 
   #resetTimer() {
-    this.timeoutId = setTimeout(() => {
-      this.setStatus(this.defaultLabel);
-      this.timeoutId = null;
-    }, this.duration);
+    this.#timeoutId = setTimeout(() => {
+      this.#setStatus(this.#defaultLabel);
+      this.#timeoutId = null;
+    }, this.#duration);
   }
 
   clear() {
-    if (this.timeoutId) {
-      clearTimeout(this.timeoutId);
-      this.timeoutId = null;
+    if (this.#timeoutId) {
+      clearTimeout(this.#timeoutId);
+      this.#timeoutId = null;
     }
   }
 }

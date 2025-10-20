@@ -7,17 +7,17 @@
  * @throws {TypeError} If {@code textContent} is not a string.
  */
 export default class ProcessedDocument {
-  textContent;
+  #textContent;
 
   constructor(textContent) {
     if (typeof textContent !== 'string') {
       throw new TypeError('ProcessedDocument text content must be a string');
     }
 
-    this.textContent = textContent;
+    this.#textContent = textContent;
   }
 
   toString() {
-    return this.textContent;
+    return this.#textContent;
   }
 }

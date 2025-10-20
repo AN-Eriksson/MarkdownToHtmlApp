@@ -10,10 +10,10 @@ import TranslationError from "./TranslationError";
  * @param {function(string, Object): Promise<string>} translateFn - Function that performs translation. Receives (text, languagePairObject) and returns a Promise resolving to the translated text.
  */
 export default class TranslationManager {
-  translateFn;
+  #translateFn;
 
   constructor(translateFn) {
-    this.translateFn = translateFn;
+    this.#translateFn = translateFn;
   }
 
   async translateText(text, languagePair) {
@@ -22,7 +22,7 @@ export default class TranslationManager {
     }
 
     try {
-      return await this.translateFn(text, languagePair.toObject());
+      return await this.#translateFn(text, languagePair.toObject());
     } catch {
       throw new TranslationError('Failed to translate text')
     }

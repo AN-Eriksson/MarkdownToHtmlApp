@@ -7,17 +7,17 @@
  * @throws {TypeError} If `textContent` is not a string.
  */
 export default class MarkdownDocument {
-  textContent;
+  #textContent;
 
   constructor(textContent) {
     if (typeof textContent !== 'string') {
       throw new TypeError('MarkdownDocument text content must be a string');
     }
 
-    this.textContent = textContent;
+    this.#textContent = textContent;
   }
 
   toString() {
-    return this.textContent;
+    return this.#textContent;
   }
 }
