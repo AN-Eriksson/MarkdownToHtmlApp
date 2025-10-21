@@ -33,7 +33,7 @@ npm run dev
 
 ## Files & architecture
 - src/components — presentational components (TextInputField, Toolbar, LanguagePicker, outputs, etc.)
-- src/lib — classes that handle specific functionality (MarkdownDocument, LangPair, CopyManager, ConversionManager, TranslationManager)
+- src/lib — classes that handle specific functionality (MarkdownDocument, LanguagePair, CopyManager, ConversionManager, TranslationManager)
 - src/hooks — custom hooks that manage async work and state (`useConvert`, `useTranslate`)
 - Uploaded `.md` files are read via a FileReader-based parser and injected into the editor state as a MarkdownDocument object.
 

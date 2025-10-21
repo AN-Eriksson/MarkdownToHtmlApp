@@ -4,7 +4,7 @@
 #PRODUCTION_HOST - The IP address of the production server.
 #PRODUCTION_HOST_USER - The user to connect to the production server.
 #PRODUCTION_HOST_PATH - The path on the production server where the application is located.
-#SSH_PRIVATE_KEY - The private key required to authenticate with GitHub.
+#SSH_PRIVATE_KEY - The private key required to authenticate with the production server.
 
 name: CI/CD Pipeline
 

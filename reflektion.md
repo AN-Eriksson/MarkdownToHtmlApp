@@ -1,6 +1,7 @@
 # Reflektion över kodkvalitet (Clean Code kap. 2–11)
 
 ## Kapitel 2 - Meningsfulla namn
+
 Att använda meningsfulla namn är nog en av de viktigare principerna då mycket tid kan sparas när man inte behöver gissa vad variabeln `x` står för i just den här kontexten och istället kan läsa t.ex `translatedDocument` och direkt förstå vad som där gömmer sig.
 
 <img src=".reflektion/translatedDocument.png" alt="translatedDocument" width="500" />
@@ -8,6 +9,7 @@ Att använda meningsfulla namn är nog en av de viktigare principerna då mycket
 Att komma på vettiga namn är ofta svårt, men med de refaktoreringsverktyg som IDE:er har inbyggda som automatiskt kan uppdatera ett variabelnamn på alla ställen det förekommer är det heller inga problem att justera i efterhand när man kommit på ett bättre.
 
 ## Kapitel 3 - Funktioner
+
 Eftersom jag gillar läsbarheten man får av att bryta ner stora funktioner i mindre (`Small!`) har jag gjort det i den omfattning som känns rimlig. Jag har försökt hålla abstraktionsnivån jämn i en funktion enligt, och abstraherat bort detaljer i sina egna små hjälpfunktioner som gör en specifik sak (`Do one thing!`).
 
 För uppdateringen av L2 modulen valde jag att göra detta för metoden nedan som konverterar inline styles som fetstilad och kursiv text.
@@ -28,6 +30,7 @@ Något jag inte gillar med detta är att så som metoderna skrivits kräver fler
 
 
 ## Kapitel 4 - Kommentarer
+
 I modulen som är tänkt att användas av andra utvecklare och integreras med deras kod valde jag att enbart skriva `JSDOC` för de publika metoder de förväntas använda för att underlätta implementation. Tanken är inte att en modulanvändare ska (behöva) gräva djupare än så i källkoden.
 
 I L3 har valt att skapa en JSDOC för varje React-komponent eftersom de snarare är att se som funktioner än "vanliga" HTML-element. De har props (indata) och innehåller i vissa fall villkorsstyrd rendering definierad i JSX, och där jag anser det nödvändigt har jag förklarat vad komponenten kräver. Detta för att ytterligare underlätta det modulära tänket att komponenten skulle kunna användas i andra projekt, och man då vill veta vilka props den behöver.
@@ -37,6 +40,7 @@ Jag tycker boken tar en ganska negativ inställning till kommentarer, men jag h�
 <img src=".reflektion/fileUploadJSDoc.png" alt="fileUpload" width="800" />
 
 ## Kapitel 5 - Formatering
+
 Formatering är viktig, men jag tycker inte det är jätteviktigt **vilken** formatering som används! Två eller fyra mellanrums indrag och liknande upplever jag för mig inte gör någon stor skillnad, så länge det är konsekvent genom alla filer i ett projekt.
 
 Detta tillämpas bäst genom att en automatisk formaterare används med inställningar man kommit överens om i projektet. I mitt fall valde jag att använda `Prettier` med standardinställningar vilket känns som en bra basnivå.
@@ -44,6 +48,7 @@ Detta tillämpas bäst genom att en automatisk formaterare används med inställ
 <img src=".reflektion/prettierConfig.png" alt="prettierConfig" width="200" />
 
 ## Kapitel 6 - Objekt och datastrukturer
+
 Istället för att skicka runt strängar eller liknande enkla datatyper har jag i flera fall valt att skapa objekt av klasser som används som parametrar och returobjekt.
 
 Några exempel där jag gjort detta är LanguagePair som skapas i `LanguagePicker` när användaren väljer språk att översätta mellan. Översättningsfunktionen förväntar sig strängar med landskoder (`'sv', 'en'`) i ett objekt på formen {from: 'sv', to: 'en'} och genom att klassen fått en `toObject()`-metod som returnerar landskoderna i rätt format minskar risken för fel indata här. `LanguagePair`s validering i constructorn ser till att felaktiga objekt inte kan skapas.
@@ -115,6 +120,7 @@ Jag har implementerat detta genom att klasserna behöver en översättningsfunkt
 Min L2 modul gjorde jag enkelt utbyggbar genom dess klasshierarki där alla converters ärver de publika metoder de krävs för att fungera i applikationen från en `AbstractConverter`. För att lägga till en ny converter behöver man bara ärva från den och implementera dess kontrakt för att det ska fungera.
 
 ## Konflikter och överväganden
+
 Jag valde att använda React för att jag gärna vill lära mig det, men jag insåg inte riktigt att det "tvingar" en att skriva kod på ett visst sätt. En komponent i React är en funktion som returnerar HTML, och det vedertagna sättet att exempelvis visa olika element baserat på state är genom villkorssatser i JSX, där ett exempel från min kod är `{mode === 'translate' && <LanguagePicker onSelect={onLanguageSelect} />}`. Denna sats (som säger att en `<LanguagePicker>` komponent med indata i form av callback-funktionen `onLanguageSelect` ska renderas om appen är i translate-läget) känns inte supertydlig, men jag antar att man vänjer sig om man jobbar mycket i React.
 
 Att skriva objektorienterat går emot "React-tänket" men eftersom jag gillar tydligheten och separationen som klasser ger är min kod något av en hybrid där jag försökt göra separationen att applikationens logik till stor del hanteras objektorienterat och React fått stå för presentation/UI.
