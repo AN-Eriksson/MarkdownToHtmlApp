@@ -5,7 +5,7 @@ Att använda meningsfulla namn är nog en av de viktigare principerna då mycket
 
 <img src=".reflektion/translatedDocument.png" alt="translatedDocument" width="500" />
 
-Att komma på vettiga namn är ofta svårt, men med de refaktoreringsverktyg som IDE's har inbyggda som automatiskt kan uppdatera ett variabelnamn på alla ställen det förekommer är det heller inga problem att justera i efterhand när man kommit på ett bättre.
+Att komma på vettiga namn är ofta svårt, men med de refaktoreringsverktyg som IDE:er har inbyggda som automatiskt kan uppdatera ett variabelnamn på alla ställen det förekommer är det heller inga problem att justera i efterhand när man kommit på ett bättre.
 
 ## Kapitel 3 - Funktioner
 Eftersom jag gillar läsbarheten man får av att bryta ner stora funktioner i mindre (`Small!`) har jag gjort det i den omfattning som känns rimlig. Jag har försökt hålla abstraktionsnivån jämn i en funktion enligt, och abstraherat bort detaljer i sina egna små hjälpfunktioner som gör en specifik sak (`Do one thing!`).
@@ -32,7 +32,7 @@ I modulen som är tänkt att användas av andra utvecklare och integreras med de
 
 I L3 har valt att skapa en JSDOC för varje React-komponent eftersom de snarare är att se som funktioner än "vanliga" HTML-element. De har props (indata) och innehåller i vissa fall villkorsstyrd rendering definierad i JSX, och där jag anser det nödvändigt har jag förklarat vad komponenten kräver. Detta för att ytterligare underlätta det modulära tänket att komponenten skulle kunna användas i andra projekt, och man då vill veta vilka props den behöver.
 
-Jag tycker boken är tar en ganska negativ inställning till kommentarer, men jag håller med om att OM man skriver en kommentar måste den tillföra något, och att detta något kanske hade kunnat förklaras med exempelvis beskrivande namn istället.
+Jag tycker boken tar en ganska negativ inställning till kommentarer, men jag håller med om att OM man skriver en kommentar måste den tillföra något, och att detta något kanske hade kunnat förklaras med exempelvis beskrivande namn istället.
 
 <img src=".reflektion/fileUploadJSDoc.png" alt="fileUpload" width="800" />
 
@@ -57,7 +57,7 @@ Jag tycker detta tänk har gjort koden tydligare och lättare att felsöka efter
 
 ## Kapitel 7 - Felhantering
 
-Jag har skapat två custom errors som jag kastar om översättningen eller konverteringen misslyckas.
+Jag har skapat två egna felklasser som jag kastar om översättningen eller konverteringen misslyckas.
 Detta är två ställen i min kod där ett fel kan inträffa som är utom den här applikationens kontroll och jag vill därför att det genast blir tydligt vad som hänt genom ett "specialfel". Detta blir `Provide context with Exceptions` som direkt pekar felsökaren rätt.
 
 Jag har tyvärr inte riktigt hunnit hantera felen hela "vägen upp" överallt, men nästa steg hade varit att hantera felen snyggt och informera användaren via gränsnsittet om vad som hänt. Exempelvis skulle ett `TranslationError` kunna leda till en uppmaning att användaren provar igen om en stund (API't ligger nere).
@@ -117,9 +117,9 @@ Min L2 modul gjorde jag enkelt utbyggbar genom dess klasshierarki där alla conv
 ## Konflikter och överväganden
 Jag valde att använda React för att jag gärna vill lära mig det, men jag insåg inte riktigt att det "tvingar" en att skriva kod på ett visst sätt. En komponent i React är en funktion som returnerar HTML, och det vedertagna sättet att exempelvis visa olika element baserat på state är genom villkorssatser i JSX, där ett exempel från min kod är `{mode === 'translate' && <LanguagePicker onSelect={onLanguageSelect} />}`. Denna sats (som säger att en `<LanguagePicker>` komponent med indata i form av callback-funktionen `onLanguageSelect` ska renderas om appen är i translate-läget) känns inte supertydlig, men jag antar att man vänjer sig om man jobbar mycket i React.
 
-Att skriva objektorienterat går emot "React-tänket" men eftersom jag gillar tydligheten och separationen som klasser är min kod något av en hybrid där jag försökt göra separationen att applikationens logik till stor del hanteras objektorienterat och React fått stå för presentation/UI.
+Att skriva objektorienterat går emot "React-tänket" men eftersom jag gillar tydligheten och separationen som klasser ger är min kod något av en hybrid där jag försökt göra separationen att applikationens logik till stor del hanteras objektorienterat och React fått stå för presentation/UI.
 
-Hooks används enligt min tolkning som ett sätt att ge funktionella komponenter några av fördelarna som klasser har i form av att de kan inkapsla state och ha en livscykelslogik. Jag har i mitt project skapat två egna för att hantera convert och translate, och i dessa sker förändringen `MarkdownDocument --> ProcessedDocument`.
+Hooks används enligt min tolkning som ett sätt att ge funktionella komponenter några av fördelarna som klasser har i form av att de kan inkapsla state och ha en livscykelslogik. Jag har i mitt project skapat två egna hooks för att hantera konvertering och översättning, och i dessa sker förändringen `MarkdownDocument --> ProcessedDocument`, men i övrigt har jag lagt logiken i klasser.
 
 ### useTranslate
 

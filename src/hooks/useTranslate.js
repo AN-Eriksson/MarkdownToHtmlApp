@@ -17,7 +17,6 @@ export default function useTranslate(translationManager) {
   const translate = async (inputDocument, languagePair) => {
     if (!inputDocument) {
       setTranslatedDocument(null);
-      return null;
     }
 
     const text = inputDocument.toString();

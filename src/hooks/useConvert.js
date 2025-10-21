@@ -16,7 +16,6 @@ export default function useConvert(conversionManager) {
   const convert = inputDocument => {
     if (!inputDocument) {
       setHtmlDocument(null);
-      return null;
     }
 
     const text = inputDocument.toString();
